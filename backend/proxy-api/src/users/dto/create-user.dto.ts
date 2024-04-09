@@ -1,12 +1,14 @@
-type DiasRefeicao = {
-  segunda: boolean;
-  terca: boolean;
-  quarta: boolean;
-  quinta: boolean;
-  sexta: boolean;
-  sabado: boolean;
-  domingo: boolean;
-};
+// export const diasAlmoco: {
+//   SEGUNDA: 'SEGUNDA';
+//   TERCA: 'TERCA';
+//   QUARTA: 'QUARTA';
+//   QUINTA: 'QUINTA';
+//   SEXTA: 'SEXTA';
+//   SABADO: 'SABADO';
+//   DOMINGO: 'DOMINGO';
+// };
+
+// export type diasAlmoco = (typeof diasAlmoco)[keyof typeof diasAlmoco];
 
 export class CreateUserDto {
   email: string;
@@ -15,5 +17,5 @@ export class CreateUserDto {
   foto: string;
   curso: string;
   turma: string;
-  diasRefeicao: DiasRefeicao;
+  //diasAlmoco: diasAlmoco[];
 }

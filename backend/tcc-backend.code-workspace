@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "proxy-api"
+		},
+		{
+			"path": "user-api"
+		},
+		{
+			"path": "admin-api"
+		}
+	],
+	"settings": {}
+}

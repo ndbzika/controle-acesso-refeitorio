@@ -1,0 +1,11 @@
+POST http://localhost:3001/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "flavio@email.com",
+  "nome": "flavio",
+  "matricula": "1",
+  "foto": "foto",
+  "curso": "ADS",
+  "turma": "2D"
+}
