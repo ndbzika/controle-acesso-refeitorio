@@ -1,1 +1,10 @@
 GET http://localhost:3001/api/auth/google/login
+
+###
+
+POST http://localhost:3001/api/auth/admin/login HTTP/1.1
+Content-Type: application/json
+{
+    "login": "caest",
+    "password": "123456"
+}

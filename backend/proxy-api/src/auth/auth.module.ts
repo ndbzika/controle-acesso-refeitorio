@@ -5,6 +5,8 @@ import { AuthService } from './auth.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { SessionSerializer } from './utils/Serializer';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './utils/constants';
 
 @Module({
   imports: [
@@ -15,6 +17,17 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.TCP,
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'ADMIN_SERVICE',
+        transport: Transport.TCP,
+      },
+    ]),
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '1d' },
+    }),
   ],
   controllers: [AuthController],
   providers: [
@@ -24,6 +37,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       provide: 'AUTH_SERVICE',
       useClass: AuthService,
     },
+    AuthService,
   ],
 })
 export class AuthModule {}
