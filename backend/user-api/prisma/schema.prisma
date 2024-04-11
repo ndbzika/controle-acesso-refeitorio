@@ -14,16 +14,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id
-  email     String   @unique
-  nome      String
-  matricula String?  @unique
-  foto      String
-  curso     String?
-  turma     String?
-  // diasAlmoco diasAlmoco[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String       @id
+  email      String?      @unique
+  nome       String?
+  matricula  String?      @unique
+  foto       String?
+  curso      String?
+  turma      String?
+  diasAlmoco diasAlmoco[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
 
 enum diasAlmoco {

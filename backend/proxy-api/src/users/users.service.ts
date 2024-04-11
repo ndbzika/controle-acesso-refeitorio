@@ -15,12 +15,16 @@ export class UsersService {
     return res;
   }
 
-  findOne(id: string) {
-    const user = this.userClient.send('findUser', id);
+  findOne(email: string) {
+    const user = this.userClient.send('findUser', email);
     return user;
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
+  }
+
+  findAll() {
+    return this.userClient.send('findAllUsers', '');
   }
 }

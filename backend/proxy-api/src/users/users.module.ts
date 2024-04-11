@@ -9,6 +9,9 @@ import { UsersController } from './users.controller';
       {
         name: 'USER_SERVICE',
         transport: Transport.TCP,
+        options: {
+          port: 3002,
+        },
       },
     ]),
   ],

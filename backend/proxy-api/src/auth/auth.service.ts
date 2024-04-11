@@ -31,31 +31,43 @@ export class AuthService {
           picture: details.picture,
         },
       });
-      this.createUser(user.id, details);
+      this.updateUser(details);
+      console.log('existe');
 
       return user;
     }
 
-    const createdLogin = await this.prisma.user.create({
+    await this.prisma.user.create({
       data: details,
     });
 
-    await this.createUser(createdLogin.id, details);
+    console.log('nao existe');
 
+    this.createUser(details);
     return user;
   }
 
-  async findUser(id: string) {
+  async findUser(email: string) {
     return await this.prisma.user.findUnique({
       where: {
-        id,
+        email,
       },
     });
   }
 
-  createUser(id: string, details: UserDetails) {
+  private createUser(details: UserDetails) {
+    console.log('Creating user');
+
     return this.userClient.emit('createUser', {
-      id,
+      email: details.email,
+      nome: details.displayName,
+      foto: details.picture,
+    });
+  }
+
+  private updateUser(details: UserDetails) {
+    console.log('Updating user');
+    return this.userClient.emit('updateUser', {
       email: details.email,
       nome: details.displayName,
       foto: details.picture,

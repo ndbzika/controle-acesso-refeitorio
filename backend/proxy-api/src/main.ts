@@ -18,6 +18,7 @@ async function bootstrap() {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  await app.startAllMicroservices();
   await app.listen(3001);
 }
 bootstrap();

@@ -3,9 +3,9 @@
 export class CreateUserDto {
   id: string;
   email: string;
-  nome: string;
+  nome?: string;
   matricula?: string;
-  foto: string;
+  foto?: string;
   curso?: string;
   turma?: string;
   //diasAlmoco: diasAlmoco[];

@@ -15,12 +15,18 @@ import { jwtConstants } from './utils/constants';
       {
         name: 'USER_SERVICE',
         transport: Transport.TCP,
+        options: {
+          port: 3002,
+        },
       },
     ]),
     ClientsModule.register([
       {
         name: 'ADMIN_SERVICE',
         transport: Transport.TCP,
+        options: {
+          port: 3000,
+        },
       },
     ]),
     JwtModule.register({

@@ -24,3 +24,20 @@ enum Role {
   CAEST
   COZINHA
 }
+
+model User {
+  id         String       @id @default(uuid())
+  email      String       @unique
+  matricula  String       @unique
+  curso      String
+  turma      String
+  diasAlmoco diasAlmoco[]
+}
+
+enum diasAlmoco {
+  SEGUNDA
+  TERCA
+  QUARTA
+  QUINTA
+  SEXTA
+}
