@@ -16,9 +16,21 @@ services:
     ports:
       - "5433:5432"
   dbLogin:
-    image: mysql:8.0.36-debian
+    image: postgres:9.6
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: google_oauth2_login
+      POSTGRES_USER: proxy
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
     ports:
-      - "3306:3306"
+      - "5434:5432"
+  dbPresenca:
+    image: mongo:7.0.8
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=presenca
+    command: mongod --auth
+    volumes:
+      - ./presenca-api/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
