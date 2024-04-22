@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "admin-api"
+		},
+		{
+			"path": "presenca-api"
 		}
 	],
 	"settings": {}
