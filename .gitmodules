@@ -1,0 +1,2 @@
+[submodule "backend/presenca-api"]
+	url = https://github.com/ndbzika/presenca-api
