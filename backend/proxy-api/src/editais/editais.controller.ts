@@ -44,6 +44,6 @@ export class EditaisController {
     @UploadedFile() edital: Express.Multer.File,
     @Req() req: Request,
   ) {
-    this.editaisService.uploadEdital(edital, req);
+    return this.editaisService.uploadEdital(edital, req);
   }
 }

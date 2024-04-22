@@ -7,6 +7,8 @@ services:
       POSTGRES_DB: db
     ports:
       - "5432:5432"
+    volumes:
+      - ./data/user:/var/lib/postgresql/data
   dbAdmin:
     image: postgres:9.6
     environment:
@@ -15,6 +17,8 @@ services:
       POSTGRES_DB: db
     ports:
       - "5433:5432"
+    volumes:
+      - ./data/admin:/var/lib/postgresql/data
   dbLogin:
     image: postgres:9.6
     environment:
@@ -23,14 +27,92 @@ services:
       POSTGRES_DB: db
     ports:
       - "5434:5432"
-  dbPresenca:
-    image: mongo:7.0.8
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=presenca
-    command: mongod --auth
     volumes:
-      - ./presenca-api/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./data/proxy:/var/lib/postgresql/data
+
+#   dbPresenca:
+#     image: mongo:7.0.8
+#     ports:
+#       - "27017:27017"
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=root
+#       - MONGO_INITDB_ROOT_PASSWORD=password
+#       - MONGO_INITDB_DATABASE=presenca
+#     command:
+#       [
+#         --auth,
+#         --replSet,
+#         presenca-set,
+#         --bind_ip_all,
+#         --keyFile,
+#         /data/keyfile/mongo-keyfile
+#       ]
+#     volumes:
+#       - ./presenca-api/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+#       - ./data/presenca:/data/db
+#       - ./presenca-api/mongo-keyfile:/data/keyfile/mongo-keyfile:ro
+#     networks:
+#       - presenca-cluster
+#     links:
+#       - dbPresenca2
+#       - dbPresenca3
+#   dbPresenca2:
+#     image: mongo:7.0.8
+#     ports:
+#       - "27018:27017"
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=root
+#       - MONGO_INITDB_ROOT_PASSWORD=password
+#       - MONGO_INITDB_DATABASE=presenca
+#     command:
+#       [
+#         --auth,
+#         --replSet,
+#         presenca-set,
+#         --keyFile,
+#         /data/keyfile/mongo-keyfile
+#       ]
+#     volumes:
+#       - ./presenca-api/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+#       - ./data/presenca2:/data/db
+#       - ./presenca-api/mongo-keyfile:/data/keyfile/mongo-keyfile:ro
+#     networks:
+#       - presenca-cluster
+#   dbPresenca3:
+#     image: mongo:7.0.8
+#     ports:
+#       - "27019:27017"
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=root
+#       - MONGO_INITDB_ROOT_PASSWORD=password
+#       - MONGO_INITDB_DATABASE=presenca
+#     command:
+#       [
+#         --auth,
+#         --replSet,
+#         presenca-set,
+#         --keyFile,
+#         /data/keyfile/mongo-keyfile
+#       ]
+#     volumes:
+#       - ./presenca-api/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+#       - ./data/presenca3:/data/db
+#       - ./presenca-api/mongo-keyfile:/data/keyfile/mongo-keyfile:ro
+#     networks:
+#       - presenca-cluster
+#   mongoinit:
+#     image: mongo:7.0.8
+#     restart: "no"
+#     depends_on:
+#       - dbPresenca
+#       - dbPresenca2
+#       - dbPresenca3
+#     command: >
+#       mongosh --host dbPresenca:27017 --authenticationDatabase admin --username root --password password --eval 'config = { "_id" : "presenca-set", "members" : [
+#         {"_id" : 0, "host" : "dbPresenca:27017"},
+#         {"_id" : 1, "host" : "dbPresenca2:27017"},
+#         {"_id" : 2, "host" : "dbPresenca3:27017"}
+#       ]}; rs.initiate(config);'
+# networks:
+#   presenca-cluster:
+#     driver: bridge

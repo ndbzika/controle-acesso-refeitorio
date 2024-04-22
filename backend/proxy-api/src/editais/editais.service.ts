@@ -8,6 +8,9 @@ export class EditaisService {
     @Inject('ADMIN_SERVICE') private readonly adminClient: ClientProxy,
   ) {}
   uploadEdital(file: Express.Multer.File, req: Request) {
-    this.adminClient.emit('uploadEdital', { edital: file, req: req.admin });
+    return this.adminClient.emit('uploadEdital', {
+      edital: file,
+      req: req.admin,
+    });
   }
 }

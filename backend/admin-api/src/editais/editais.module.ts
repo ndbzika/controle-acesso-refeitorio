@@ -15,6 +15,13 @@ import { JwtModule } from '@nestjs/jwt';
           port: 3002,
         },
       },
+      {
+        name: 'PRESENCA_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          port: 3003,
+        },
+      },
     ]),
     JwtModule.register({
       global: true,
