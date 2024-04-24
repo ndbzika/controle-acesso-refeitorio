@@ -13,6 +13,13 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
           port: 3003,
         },
       },
+      {
+        name: 'ADMIN_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          port: 3000,
+        },
+      },
     ]),
   ],
   controllers: [PresencasController],

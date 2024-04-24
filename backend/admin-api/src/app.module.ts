@@ -6,6 +6,7 @@ import { AdminsModule } from './admins/admins.module';
 import { EditaisModule } from './editais/editais.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { PresencesModule } from './presences/presences.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         },
       },
     ]),
+    PresencesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
