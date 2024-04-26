@@ -10,6 +10,7 @@ import { PassportModule } from '@nestjs/passport';
 import { AdminsModule } from './admins/admins.module';
 import { EditaisModule } from './editais/editais.module';
 import { PresencasModule } from './presencas/presencas.module';
+import { RelatoriosModule } from './relatorios/relatorios.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PresencasModule } from './presencas/presencas.module';
     AdminsModule,
     EditaisModule,
     PresencasModule,
+    RelatoriosModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
