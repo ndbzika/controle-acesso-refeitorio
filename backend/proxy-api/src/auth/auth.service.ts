@@ -36,11 +36,12 @@ export class AuthService {
       return user;
     }
 
-    await this.prisma.user.create({
+    const createdUser = await this.prisma.user.create({
       data: details,
     });
     this.createUser(details);
-    return user;
+
+    return createdUser;
   }
 
   async findUser(email: string) {
