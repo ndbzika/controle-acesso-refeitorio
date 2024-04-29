@@ -5,12 +5,10 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Req,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { GoogleAuthGuard } from './utils/Guards';
-import { Request } from 'express';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -26,13 +24,6 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(GoogleAuthGuard)
   handleRedirect() {
-    return { message: 'OK' };
-  }
-
-  @Get('google/logout')
-  @UseGuards(GoogleAuthGuard)
-  handleLogout(@Req() req: Request) {
-    req.logout({ keepSessionInfo: false }, () => {});
     return { message: 'OK' };
   }
 

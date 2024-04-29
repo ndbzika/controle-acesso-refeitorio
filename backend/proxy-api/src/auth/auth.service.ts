@@ -32,7 +32,6 @@ export class AuthService {
         },
       });
       this.updateUser(details);
-      console.log('existe');
 
       return user;
     }
@@ -40,9 +39,6 @@ export class AuthService {
     await this.prisma.user.create({
       data: details,
     });
-
-    console.log('nao existe');
-
     this.createUser(details);
     return user;
   }
@@ -56,8 +52,6 @@ export class AuthService {
   }
 
   private createUser(details: UserDetails) {
-    console.log('Creating user');
-
     return this.userClient.emit('createUser', {
       email: details.email,
       nome: details.displayName,
@@ -66,7 +60,6 @@ export class AuthService {
   }
 
   private updateUser(details: UserDetails) {
-    console.log('Updating user');
     return this.userClient.emit('updateUser', {
       email: details.email,
       nome: details.displayName,

@@ -12,8 +12,6 @@ export class EditaisService {
     private readonly prisma: PrismaService,
   ) {}
   async handleLoadEdital(edital: Express.Multer.File) {
-    console.log('handleLoadEdital');
-
     const workbook = new Excel.Workbook();
 
     const worksheet = await workbook.csv.readFile(edital.path);
@@ -33,8 +31,6 @@ export class EditaisService {
       });
 
       if (haveAccount) {
-        console.log('update');
-
         await this.prisma.user.update({
           where: {
             email: email.toString(),
@@ -61,8 +57,6 @@ export class EditaisService {
           error: false,
         };
       } else {
-        console.log('create');
-
         const user = await this.prisma.user.create({
           data: {
             email: email.toString(),

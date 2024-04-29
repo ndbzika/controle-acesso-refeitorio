@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { ClientProxy } from '@nestjs/microservices';
 // import { CreateUserEvent } from './create-user.event';
 
@@ -18,10 +17,6 @@ export class UsersService {
   findOne(email: string) {
     const user = this.userClient.send('findUser', email);
     return user;
-  }
-
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
   }
 
   findAll() {

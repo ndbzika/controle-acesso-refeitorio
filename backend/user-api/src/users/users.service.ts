@@ -13,7 +13,6 @@ export class UsersService {
         email: createUserDto.email,
       },
     });
-    console.log(user);
 
     if (user) {
       return this.prisma.user.update({
@@ -57,8 +56,6 @@ export class UsersService {
   }
 
   update(email: string, updateUserDto: UpdateUserDto) {
-    console.log('dando update');
-
     return this.prisma.user.update({
       where: {
         email: email,
@@ -67,9 +64,5 @@ export class UsersService {
         ...updateUserDto,
       },
     });
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
   }
 }

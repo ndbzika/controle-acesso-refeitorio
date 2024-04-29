@@ -3,14 +3,10 @@ import { EditaisService } from './editais.service';
 import { MessagePattern } from '@nestjs/microservices';
 import RolesGuard from 'src/admins/roles.guard';
 import { Role } from '@prisma/client';
-import { Reflector } from '@nestjs/core';
 
 @Controller()
 export class EditaisController {
-  constructor(
-    private readonly editaisService: EditaisService,
-    private reflector: Reflector,
-  ) {}
+  constructor(private readonly editaisService: EditaisService) {}
 
   @UseGuards(RolesGuard(Role.CAEST))
   @MessagePattern('uploadEdital')

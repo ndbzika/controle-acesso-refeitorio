@@ -22,7 +22,6 @@ export class AdminsGuard implements CanActivate {
       });
 
       request['admin'] = payload;
-      console.log(request.admin);
     } catch {
       throw new UnauthorizedException();
     }
