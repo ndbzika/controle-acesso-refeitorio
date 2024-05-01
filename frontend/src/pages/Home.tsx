@@ -1,4 +1,5 @@
 import GoogleButton from "react-google-button"
+import { Link } from "react-router-dom"
 
 export const Home = () => {
   return (
@@ -15,11 +16,12 @@ export const Home = () => {
         >
           Logar com google
         </GoogleButton>
-        <button
+        <Link
+          to="/admin/login"
           className="text-center w-full text-[#6D6D6D] text-base"
         >
           Login como adminstrador
-        </button>
+        </Link>
       </div>
     </main>
   )
