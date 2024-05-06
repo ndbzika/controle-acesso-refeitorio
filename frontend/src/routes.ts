@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { AdminLogin } from './pages/admin/AdminLogin';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
+import { Presencas } from './pages/admin/AdminPresencas';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: AdminDashboard('caest'),
+      },
+      {
+        path: 'presencas',
+        Component: Presencas,
       },
     ],
   },
