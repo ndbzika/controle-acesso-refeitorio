@@ -1,7 +1,7 @@
 import { Cards } from "../../components/AdminCards"
 import { Header } from "../../components/Header"
 
-export const AdminDashboard = (role: 'caest'|'cozinha') => {
+export const AdminDashboard = ({role}: {role: 'caest'|'cozinha'}) => {
   return (
     <>
       <Header />

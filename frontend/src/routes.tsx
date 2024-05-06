@@ -1,14 +1,14 @@
-import * as React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { AdminLogin } from './pages/admin/AdminLogin';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { Presencas } from './pages/admin/AdminPresencas';
+import { TurmasPage } from './pages/admin/CAEST/TurmasPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    Component: Home,
+    element: <Home></Home>,
     index: true,
   },
   {
@@ -16,16 +16,20 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'login',
-        Component: AdminLogin,
+        element: <AdminLogin></AdminLogin>,
       },
       {
         path: 'dashboard',
-        element: AdminDashboard('caest'),
+        element: <AdminDashboard role='caest'></AdminDashboard>,
       },
       {
         path: 'presencas',
-        Component: Presencas,
+        element: <Presencas></Presencas>,
       },
+      {
+        path: 'turmas',
+        element: <TurmasPage></TurmasPage>,
+      }
     ],
   },
 ]);
