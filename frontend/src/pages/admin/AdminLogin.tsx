@@ -1,13 +1,17 @@
 import { FormEvent } from "react";
 import { Header } from "../../components/Header"
 import { useNavigate } from "react-router-dom";
+import { useAdminLogin } from "./useAdminLogin";
 
 export const AdminLogin = () => {
+  const { loginRef, passwordRef, handleLogin, handleCheckToken } = useAdminLogin();
   const navigate = useNavigate();
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // check login and password
-    navigate("/admin/dashboard");
+    handleLogin();
+    const hasToken = handleCheckToken();
+    if (hasToken)
+      navigate("/admin/dashboard");
   }
 
   return (
@@ -20,9 +24,9 @@ export const AdminLogin = () => {
           className="w-80"
         >
           <label htmlFor="login">Login</label>
-          <input type="text" id="login" className="w-80 h-16 border border-black rounded-md mb-4 p-3"/>
+          <input ref={loginRef} type="text" id="login" className="w-80 h-16 border border-black rounded-md mb-4 p-3"/>
           <label htmlFor="password">Senha</label>
-          <input type="password" id="password" className="w-80 h-16 border border-black rounded-md mb-10 p-3"/>
+          <input ref={passwordRef} type="password" id="password" className="w-80 h-16 border border-black rounded-md mb-10 p-3"/>
           <button className="w-full bg-green text-white font-bold py-4 rounded-lg">Entrar</button>
         </form>
       </main>

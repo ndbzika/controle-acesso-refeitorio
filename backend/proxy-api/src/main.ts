@@ -18,6 +18,10 @@ async function bootstrap() {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  });
   await app.startAllMicroservices();
   await app.listen(3001);
 }
