@@ -4,6 +4,7 @@ import { AdminLogin } from './pages/admin/AdminLogin';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { Presencas } from './pages/admin/AdminPresencas';
 import { TurmasPage } from './pages/admin/CAEST/TurmasPage';
+import { RelatorioPage } from './pages/admin/CAEST/RelatorioPage';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: 'turmas',
         element: <TurmasPage></TurmasPage>,
+      },
+      {
+        path: 'relatorios',
+        element: <RelatorioPage></RelatorioPage>
       }
     ],
   },
