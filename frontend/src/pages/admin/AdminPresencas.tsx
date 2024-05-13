@@ -1,3 +1,4 @@
+import { useAuth } from "@/components/AuthProvider"
 import { Header } from "@/components/Header"
 import { PresencaTable } from "@/components/PresencaTable"
 import { columns } from "@/components/PresencaTable/columns"
@@ -5,9 +6,10 @@ import { Input } from "@/components/ui/input"
 import { alunos } from "@/utils/AlunosExample"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const Presencas = () => {
+  const {admin} = useAuth();
   const todayDate = new Date();
   const [matriculaOrName, setMatriculaOrName] = useState('');
   const [filteredAlunos, setFilteredAlunos] = useState(alunos);
@@ -25,6 +27,11 @@ export const Presencas = () => {
   const alunosConfirmados = () => {
     return alunos.filter(aluno => !!aluno.presenca).length;
   }
+
+  useEffect(() => {
+    console.log(admin);
+
+  }, [admin])
 
   return (
     <>

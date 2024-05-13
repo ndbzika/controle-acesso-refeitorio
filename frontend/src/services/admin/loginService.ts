@@ -1,4 +1,7 @@
+import { handleError } from '@/helpers/ErrorHandle';
 import axios from '../../config/axios';
+import { AdminToken } from '@/models/Admin';
+import { useNavigate } from 'react-router-dom';
 
 export interface ILoginService {
   login: string;
@@ -11,26 +14,16 @@ export interface ILoginServiceResponse {
   error?: boolean | null;
 }
 
-export const loginService = async ({
-  login = '',
-  password = '',
-}: ILoginService) => {
-  const req = await axios
-    .post('/auth/admin/login', {
+export const loginService = async (login = '', password = '') => {
+  try {
+    const data = await axios.post<AdminToken>('/auth/admin/login', {
       login,
       password,
-    })
-    .then((res) => {
-      return {
-        token: res.data.token,
-        error: res.data.error,
-      } as ILoginServiceResponse;
-    })
-    .catch((err) => {
-      return {
-        data: err.response,
-        error: err.response.data.error,
-      } as ILoginServiceResponse;
     });
-  return req;
+    return data.data;
+  } catch (error) {
+    console.log('error: ', error);
+
+    handleError(error);
+  }
 };

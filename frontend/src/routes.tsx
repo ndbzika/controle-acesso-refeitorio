@@ -5,6 +5,9 @@ import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { Presencas } from './pages/admin/AdminPresencas';
 import { TurmasPage } from './pages/admin/CAEST/TurmasPage';
 import { RelatorioPage } from './pages/admin/CAEST/RelatorioPage';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { AdminProvider } from './components/AuthProvider';
+import { AdminProtectedRoute } from './components/ProtectedRoute/AdminProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -17,23 +20,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'login',
-        element: <AdminLogin></AdminLogin>,
+        element: <AdminProvider><AdminLogin/></AdminProvider>,
       },
       {
         path: 'dashboard',
-        element: <AdminDashboard role='caest'></AdminDashboard>,
+        element: <AdminProtectedRoute><AdminDashboard/></AdminProtectedRoute>,
       },
       {
         path: 'presencas',
-        element: <Presencas></Presencas>,
+        element: <AdminProtectedRoute><Presencas/></AdminProtectedRoute>,
       },
       {
         path: 'turmas',
-        element: <TurmasPage></TurmasPage>,
+        element: <AdminProtectedRoute><TurmasPage/></AdminProtectedRoute>,
       },
       {
         path: 'relatorios',
-        element: <RelatorioPage></RelatorioPage>
+        element: <AdminProtectedRoute><RelatorioPage/></AdminProtectedRoute>
       }
     ],
   },
