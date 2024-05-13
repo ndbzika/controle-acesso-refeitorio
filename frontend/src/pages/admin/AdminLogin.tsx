@@ -2,6 +2,7 @@ import { FormEvent } from "react";
 import { Header } from "../../components/Header"
 import { useNavigate } from "react-router-dom";
 import { useAdminLogin } from "./useAdminLogin";
+import { Toaster } from "@/components/ui/toaster";
 
 export const AdminLogin = () => {
   const { loginRef, passwordRef, handleLogin, handleCheckToken } = useAdminLogin();
@@ -30,6 +31,7 @@ export const AdminLogin = () => {
           <button className="w-full bg-green text-white font-bold py-4 rounded-lg">Entrar</button>
         </form>
       </main>
+      <Toaster/>
     </>
   )
 }

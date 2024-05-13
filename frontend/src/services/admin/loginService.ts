@@ -6,7 +6,9 @@ export interface ILoginService {
 }
 
 export interface ILoginServiceResponse {
-  token: string;
+  token?: string;
+  message?: string;
+  error?: boolean | null;
 }
 
 export const loginService = async ({
@@ -19,10 +21,16 @@ export const loginService = async ({
       password,
     })
     .then((res) => {
-      return res.data as ILoginServiceResponse;
+      return {
+        token: res.data.token,
+        error: res.data.error,
+      } as ILoginServiceResponse;
     })
     .catch((err) => {
-      return err.data;
+      return {
+        data: err.response,
+        error: err.response.data.error,
+      } as ILoginServiceResponse;
     });
   return req;
 };
