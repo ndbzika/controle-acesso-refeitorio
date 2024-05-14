@@ -8,6 +8,7 @@ import { RelatorioPage } from './pages/admin/CAEST/RelatorioPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminProvider } from './components/AuthProvider';
 import { AdminProtectedRoute } from './components/ProtectedRoute/AdminProtectedRoute';
+import { Header } from './components/Header';
 
 const router = createBrowserRouter([
   {
@@ -20,23 +21,43 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'login',
-        element: <AdminProvider><AdminLogin/></AdminProvider>,
+        element:
+        <AdminProvider>
+          <Header/>
+          <AdminLogin/>
+        </AdminProvider>,
       },
       {
         path: 'dashboard',
-        element: <AdminProtectedRoute><AdminDashboard/></AdminProtectedRoute>,
+        element:
+        <AdminProtectedRoute>
+          <Header/>
+          <AdminDashboard/>
+        </AdminProtectedRoute>,
       },
       {
         path: 'presencas',
-        element: <AdminProtectedRoute><Presencas/></AdminProtectedRoute>,
+        element:
+        <AdminProtectedRoute>
+          <Header/>
+          <Presencas/>
+        </AdminProtectedRoute>,
       },
       {
         path: 'turmas',
-        element: <AdminProtectedRoute><TurmasPage/></AdminProtectedRoute>,
+        element:
+        <AdminProtectedRoute>
+          <Header/>
+          <TurmasPage/>
+        </AdminProtectedRoute>,
       },
       {
         path: 'relatorios',
-        element: <AdminProtectedRoute><RelatorioPage/></AdminProtectedRoute>
+        element:
+        <AdminProtectedRoute>
+          <Header/>
+          <RelatorioPage/>
+        </AdminProtectedRoute>
       }
     ],
   },
