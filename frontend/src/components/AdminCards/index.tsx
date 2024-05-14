@@ -4,7 +4,7 @@ import { CardRoot } from "./CardRoot"
 
 export const Cards = ({role}: {role:'caest'|'cozinha'}) => {
   return (
-    role === 'caest' ? (
+    role.toLowerCase() === 'caest' ? (
       <div className="flex justify-center items-center gap-10 flex-wrap">
         <CardRoot destiny='presencas'>
           <CardIcon>controle-presenca</CardIcon>

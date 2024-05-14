@@ -10,7 +10,7 @@ export const AdminDashboard = () => {
       </h2>
 
       <div>
-        <Cards role='caest' />
+        <Cards role={admin!.role} />
       </div>
     </main>
   )
