@@ -21,9 +21,7 @@ export const loginService = async (login = '', password = '') => {
       password,
     });
     return data.data;
-  } catch (error) {
-    console.log('error: ', error);
-
+  } catch (error: any) {
     handleError(error);
   }
 };

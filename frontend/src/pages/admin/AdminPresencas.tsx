@@ -1,41 +1,89 @@
-import { useAuth } from "@/components/AuthProvider"
-import { Header } from "@/components/Header"
 import { PresencaTable } from "@/components/PresencaTable"
-import { columns } from "@/components/PresencaTable/columns"
+import { Aluno, columns } from "@/components/PresencaTable/columns"
 import { Input } from "@/components/ui/input"
-import { alunos } from "@/utils/AlunosExample"
-import { format } from "date-fns"
+import { format, set } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { useEffect, useState } from "react"
+import axios from '@/config/axios';
+import { handleError } from "@/helpers/ErrorHandle"
 
 export const Presencas = () => {
-  const {admin} = useAuth();
+  const [isReady, setIsReady] = useState(false);
+  const [alunos, setAlunos] = useState<Aluno[]>([] as Aluno[]);
   const todayDate = new Date();
   const [matriculaOrName, setMatriculaOrName] = useState('');
-  const [filteredAlunos, setFilteredAlunos] = useState(alunos);
+  const [filteredAlunos, setFilteredAlunos] = useState<Aluno[]>([] as Aluno[]);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
       setFilteredAlunos(alunos);
-      setMatriculaOrName('');
-      return;
     }
     setMatriculaOrName(e.target.value);
-    setFilteredAlunos((alunos) => alunos.filter((aluno) => {
-      return aluno.matricula.includes(e.target.value) || aluno.nome.toLowerCase().includes(e.target.value.toLowerCase());
-    }));
+    setFilteredAlunos(alunos.filter((aluno) => (
+      aluno.nome.toLowerCase().includes(e.target.value.toLowerCase()) ||
+      aluno.matricula.includes(e.target.value)
+    )))
   }
+
   const alunosConfirmados = () => {
-    return alunos.filter(aluno => !!aluno.presenca).length;
+    return alunos.filter((aluno) => aluno.presenca).length;
+  }
+
+  const handleGetAlunos = async () => {
+    try {
+      const response = await axios.get('/presencas');
+      response.data.forEach((aluno: any) => {
+        handleGetAluno(aluno.alunoEmail).then((data) => {
+          setAlunos((alunos) => (
+            [
+              ...alunos,
+              {
+                id: data.id,
+                matricula: data.matricula,
+                nome: data.nome,
+                curso: data.curso,
+                presenca: aluno.presenca
+              }
+            ]
+          ))
+          setFilteredAlunos((alunos) => (
+            [
+              ...alunos,
+              {
+                id: data.id,
+                matricula: data.matricula,
+                nome: data.nome,
+                curso: data.curso,
+                presenca: aluno.presenca
+              }
+            ]
+          ))
+        })
+      });
+      return alunos;
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  const handleGetAluno = async (email: string) => {
+    try {
+      return await axios.get(`/users/${email}`).then((response) => response.data);
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   useEffect(() => {
-    console.log(admin);
-
-  }, [admin])
+    handleGetAlunos().then((alunos) => {
+      if (alunos) {
+        setFilteredAlunos(alunos);
+      }
+      setIsReady(true);
+    })
+  },[])
 
   return (
-    <>
-      <Header/>
+    isReady ? (
       <main
       className="flex flex-col gap-4 p-4"
       >
@@ -55,7 +103,7 @@ export const Presencas = () => {
             </div>
             <div className="text-center font-medium">
               <p className="text-xl">Pendente</p>
-              <span className="text-3xl">{alunos.length - alunosConfirmados()}</span>
+              <span className="text-3xl">{filteredAlunos.length - alunosConfirmados()!}</span>
             </div>
           </div>
           <div className="flex flex-col gap-8 text-3xl text-center">
@@ -71,6 +119,10 @@ export const Presencas = () => {
           <PresencaTable columns={columns} data={filteredAlunos}/>
         </div>
       </main>
-    </>
+    ) : (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    )
   )
 }

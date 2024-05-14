@@ -32,4 +32,10 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
+
+  @UseGuards(AdminsGuard)
+  @Get(':email')
+  findOne(@Req() req: Request) {
+    return this.usersService.findOne(req.params.email);
+  }
 }

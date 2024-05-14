@@ -16,6 +16,12 @@ export class PresencasController {
   constructor(private readonly presencasService: PresencasService) {}
 
   @UseGuards(AdminsGuard)
+  @Get()
+  findAllPresences() {
+    return this.presencasService.findAllToday();
+  }
+
+  @UseGuards(AdminsGuard)
   @Get(':email')
   findAll(@Param('email') email: string) {
     return this.presencasService.findAll(email);

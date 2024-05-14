@@ -12,6 +12,10 @@ export class PresencasService {
     return this.presencaService.send('findAll', { alunoEmail: email });
   }
 
+  findAllToday() {
+    return this.presencaService.send('findAllToday', {});
+  }
+
   confirmPresence(email: string, req: Request) {
     return this.adminService.send('confirmPresence', {
       alunoEmail: email,
