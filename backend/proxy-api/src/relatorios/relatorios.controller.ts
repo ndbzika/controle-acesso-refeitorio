@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { RelatoriosService } from './relatorios.service';
-import { CreateRelatorioDTO } from './dto/create-relatorio.dto';
 import { Request } from 'express';
 import { AdminsGuard } from 'src/auth/auth.guard';
 
@@ -10,7 +9,11 @@ export class RelatoriosController {
 
   @UseGuards(AdminsGuard)
   @Get()
-  getRelatorio(@Body() data: CreateRelatorioDTO, @Req() req: Request) {
-    return this.relatoriosService.createRelatorio(data, req);
+  getRelatorio(
+    @Query('dataInicio') dataInicio: string, // Change the type to string
+    @Query('dataFim') dataFim: string, // Change the type to string
+    @Req() req: Request,
+  ) {
+    return this.relatoriosService.createRelatorio({ dataInicio, dataFim }, req);
   }
 }
