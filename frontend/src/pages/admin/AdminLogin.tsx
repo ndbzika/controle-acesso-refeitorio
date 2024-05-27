@@ -9,8 +9,8 @@ export const AdminLogin = () => {
   }
 
   return (
-    <main className="w-full h-full flex flex-col justify-center items-center mt-56 sm:flex-row">
-      <img src="/IFPB-CZ-logo.png" alt="IFPB Cajazeiras logo" className="min-w-40 mr-24"/>
+    <main className="w-full h-full flex flex-col justify-center items-center mt-12 md:mt-48 sm:flex-row">
+      <img src="/IFPB-CZ-logo.png" alt="IFPB Cajazeiras logo" className="min-w-40 md:mr-24"/>
       <form
         onSubmit={handleSubmit}
         className="w-80"
