@@ -7,14 +7,23 @@ type CardRootProps = {
 
 export const CardRoot = ({children, destiny}: CardRootProps) => {
   const handleSortBgColor = () => {
-    const colors = [
-      'bg-[#74A3FF]',
-      'bg-[#CCFF61]',
-      'bg-[#5EF5FF]',
-      'bg-[#FF9900]',
-      'bg-[#00A3FF]',
-      ]
-    return colors[Math.floor(Math.random() * colors.length)]
+    type coresDestinosType = {
+      'presencas': string,
+      'relatorios': string,
+      'turmas': string,
+      'validar-presenca': string,
+      'lista-do-dia': string
+    };
+
+    const coresDestinos: coresDestinosType = {
+      'presencas': 'bg-[#74A3FF]',
+      'relatorios': 'bg-[#CCFF61]',
+      'turmas': 'bg-[#5EF5FF]',
+      'validar-presenca': 'bg-[#FF9900]',
+      'lista-do-dia': 'bg-[#00A3FF]'
+    };
+    const dest: keyof coresDestinosType = destiny as keyof coresDestinosType;
+    return coresDestinos[dest];
   }
   return (
     <Link to={`/admin/${destiny}`}>

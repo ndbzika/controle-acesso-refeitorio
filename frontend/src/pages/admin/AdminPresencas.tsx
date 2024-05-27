@@ -30,7 +30,10 @@ export const Presencas = () => {
 
   const handleGetAlunos = async () => {
     try {
-      const response = await axios.get('/presencas');
+      const response = await axios.get('/presencas').then((response) => response.data)
+      .catch((error) => {
+        handleError(error);
+      });
       response.data.forEach((aluno: any) => {
         handleGetAluno(aluno.alunoEmail).then((data) => {
           setAlunos((alunos) => (
