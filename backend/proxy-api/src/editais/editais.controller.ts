@@ -8,11 +8,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { EditaisService } from './editais.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Request } from 'express';
 import { diskStorage } from 'multer';
 import { AdminsGuard } from 'src/auth/auth.guard';
-import { Request } from 'express';
+import { EditaisService } from './editais.service';
 
 @Controller('editais')
 export class EditaisController {
@@ -44,6 +44,8 @@ export class EditaisController {
     @UploadedFile() edital: Express.Multer.File,
     @Req() req: Request,
   ) {
+    console.log(edital);
+
     return this.editaisService.uploadEdital(edital, req);
   }
 }

@@ -1,11 +1,11 @@
 import { PresencaTable } from "@/components/PresencaTable"
 import { Aluno, columns } from "@/components/PresencaTable/columns"
 import { Input } from "@/components/ui/input"
-import { format, set } from "date-fns"
+import axios from '@/config/axios'
+import { handleError } from "@/helpers/ErrorHandle"
+import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { useEffect, useState } from "react"
-import axios from '@/config/axios';
-import { handleError } from "@/helpers/ErrorHandle"
 
 export const Presencas = () => {
   const [isReady, setIsReady] = useState(false);
@@ -75,11 +75,8 @@ export const Presencas = () => {
 
   useEffect(() => {
     handleGetAlunos().then((alunos) => {
-      if (alunos) {
-        setFilteredAlunos(alunos);
-      }
-      setIsReady(true);
-    })
+      if (alunos) setFilteredAlunos(alunos);
+    }).finally(() => setIsReady(true));
   },[])
 
   return (

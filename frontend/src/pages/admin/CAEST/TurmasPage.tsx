@@ -1,10 +1,21 @@
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from 'zod'
 import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { toast } from '@/components/ui/use-toast'
+import axios from '@/config/axios'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from 'zod'
+
+const cadastrarTurma = async (data: any) => {
+  const { curso, turma, ano, edital } = data;
+  console.log(edital);
+
+  return await axios.post('/editais', {
+    edital: edital
+  })
+}
 
 const formSchema = z.object({
     curso: z.string(),
@@ -12,9 +23,7 @@ const formSchema = z.object({
     ano: z.string(),
     edital: z.custom<File>().refine((file) => file instanceof File, {
       message: 'O arquivo deve ser um CSV',
-    }).refine((file) => file.type === 'text/csv', {
-      message: 'O arquivo deve ser um CSV',
-    }),
+    })
 })
 
 export const TurmasPage = () => {
@@ -27,7 +36,16 @@ export const TurmasPage = () => {
     }
   })
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    cadastrarTurma(values).then((res) => {
+      toast({
+        title: 'Turma cadastrada com sucesso'
+      })
+    }).catch((err) => {
+      toast({
+        title: 'Erro ao cadastrar turma',
+        variant: "destructive"
+      })
+    })
   }
   return (
     <main className="w-full h-full mt-24">
