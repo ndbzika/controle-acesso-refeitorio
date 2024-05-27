@@ -18,7 +18,7 @@ export const Home = () => {
         </GoogleButton>
         <Link
           to="/admin/login"
-          className="text-center w-full text-[#6D6D6D] text-base"
+          className="block w-full text-center text-[#6D6D6D] text-sm"
         >
           Login como adminstrador
         </Link>
