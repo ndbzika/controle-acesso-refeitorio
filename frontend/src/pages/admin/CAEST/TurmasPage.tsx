@@ -10,11 +10,16 @@ import { z } from 'zod'
 
 const cadastrarTurma = async (data: any) => {
   const { curso, turma, ano, edital } = data;
-  console.log(edital);
+  const formData = new FormData();
+  formData.append('edital', edital);
+  const config = {
+    ...axios.defaults,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }
 
-  return await axios.post('/editais', {
-    edital: edital
-  })
+  return await axios.post('/editais', formData, config)
 }
 
 const formSchema = z.object({
