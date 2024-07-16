@@ -27,7 +27,12 @@ export class UsersController {
     const { user } = req;
 
     if (user) {
-      const userObj = this.usersService.findOne(user.email);
+      let userObj = null;
+      try {
+        userObj = await this.usersService.findOne(user.email);
+      } catch (error) {
+        return { user: null, error: error.message };
+      }
 
       return { user: { ...userObj }, error: null };
     }
