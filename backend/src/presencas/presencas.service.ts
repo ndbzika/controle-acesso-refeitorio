@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import moment from 'moment';
+import * as moment from 'moment';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePresencaDto } from './dto/create-presenca.dto';
 

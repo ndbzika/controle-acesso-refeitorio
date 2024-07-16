@@ -7,8 +7,8 @@ import { RelatoriosService } from './relatorios.service';
 export class RelatoriosController {
   constructor(private readonly relatoriosService: RelatoriosService) {}
 
-  @UseGuards(RolesGuard(Role.CAEST))
   @UseGuards(AdminsGuard)
+  @UseGuards(RolesGuard(Role.CAEST))
   @Get()
   getRelatorio(
     @Query('dataInicio') dataInicio: string,

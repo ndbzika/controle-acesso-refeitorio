@@ -67,7 +67,7 @@ export class EditaisService {
           alunoId: user.id,
           diasAlmoco: diasAlmocoEn,
         });
-
+        // isn't executing the create method
         return {
           message: 'Usuário cadastrado com sucesso',
           user,

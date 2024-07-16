@@ -6,8 +6,6 @@ import {
   Patch,
   UseGuards,
 } from '@nestjs/common';
-import { Role } from '@prisma/client';
-import RoleGuard from 'src/admins/roles.guard';
 import { AdminsGuard } from 'src/auth/auth.guard';
 import { PresencasService } from './presencas.service';
 
@@ -16,10 +14,19 @@ export class PresencasController {
   constructor(private readonly presencasService: PresencasService) {}
 
   @UseGuards(AdminsGuard)
-  @UseGuards(RoleGuard(Role.COZINHA))
   @Get()
   findAllPresences() {
-    return this.presencasService.findAllToday();
+    let presences = null;
+
+    try {
+      this.presencasService.findAllToday().then((data) => {
+        presences = data;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    return presences;
   }
 
   @UseGuards(AdminsGuard)

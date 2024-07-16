@@ -18,6 +18,7 @@ import { EditaisService } from './editais.service';
 export class EditaisController {
   constructor(private readonly editaisService: EditaisService) {}
 
+  @UseGuards(RolesGuard(Role.CAEST))
   @UseGuards(AdminsGuard)
   @Post()
   @UseInterceptors(
@@ -39,11 +40,8 @@ export class EditaisController {
       },
     }),
   )
-  @UseGuards(RolesGuard(Role.CAEST))
   @HttpCode(200)
   uploadEdital(@UploadedFile() edital: Express.Multer.File) {
-    console.log(edital);
-
     return this.editaisService.uploadEdital(edital);
   }
 }
